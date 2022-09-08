@@ -60,7 +60,7 @@ class ContenedorMongoDb{
     
 
         let mensaje = await model.find({})
-        const arrayAuthor = []
+        /* const arrayAuthor = []
         mensaje.map((p) => {
             
             const objetoFinal = p.author
@@ -71,7 +71,7 @@ class ContenedorMongoDb{
                           post: mensaje
                           }
 
-        const schemaAuthor = new schema.Entity('author', {idAttribute: 'email'});
+        const schemaAuthor = new schema.Entity('author');
 
         const normalizedChat = normalize(mensajes, schemaAuthor )
 
@@ -79,9 +79,10 @@ class ContenedorMongoDb{
             console.log(util.inspect(objeto,false,12,true))
         }
 
-        print(normalizedChat)
+        print(normalizedChat) */
 
         return mensaje
+        /* return normalizedChat */
  
     }
 

@@ -32,8 +32,12 @@ function renderMensajes(data) {
 
     const html = data.map((elem, index) => {
         return(`<div>
+
             <strong><font color="blue">${elem.author.email}</font></strong><font color="brown">[${elem.hora}]</font>:
-            <em><font color="green"><i>${elem.text}</font></i></em> </div>`)
+            <em><font color="green"><i>${elem.text}</font></i></em> 
+            
+            
+            </div>`)
     }).join(" ");
     document.getElementById('messages').innerHTML = html;
 }
@@ -52,12 +56,12 @@ function addMessage(e) {
     if(email.length != 0){
         const mensaje = {
             author: { email: email, 
-                nombre: "", 
-                apellido: "", 
+                nombre: "Prueba1", 
+                apellido: "Prueba2", 
                 edad: 0, 
-                alias: "",
+                alias: "PruebaAlias",
                 avatar: "http"},
-                text: document.getElementById('texto').value
+            text: document.getElementById('texto').value
             /* hora: `${dia}/${mes}/${año} - ${hora}:${min}:${seg}` */
         };
 
