@@ -56,8 +56,11 @@ class ContenedorMongoDb{
 
     async getAll()
     {
-       console.log("READ ALL")
-    
+        console.log("READ ALL")
+        function print(objeto) {
+        console.log(util.inspect(objeto,false,12,true))
+        }
+
 
         let mensaje = await model.find({})
         /* const arrayAuthor = []
@@ -65,24 +68,32 @@ class ContenedorMongoDb{
             
             const objetoFinal = p.author
             arrayAuthor.push(objetoFinal)
-        })
+        }) */
 
-        const mensajes = {id: 999,
-                          post: mensaje
-                          }
+        const mensajes = { id: 999,
+                            mensaje: mensaje}
+
 
         const schemaAuthor = new schema.Entity('author');
 
+        /* const schemaPost = new schema.Entity("post", {
+            author: schemaAuthor,
+        }) */
+
         const normalizedChat = normalize(mensajes, schemaAuthor )
 
-        function print(objeto) {
-            console.log(util.inspect(objeto,false,12,true))
-        }
+        print(normalizedChat)
 
-        print(normalizedChat) */
+        const data = [normalizedChat, schemaAuthor]
 
-        return mensaje
-        /* return normalizedChat */
+        const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
+        console.log("DESNORMALIZAD")
+        print(denormalizedData)
+
+        /* console.log("Mensajee")
+        print(denormalizedData.mensaje) */
+
+        return data
  
     }
 

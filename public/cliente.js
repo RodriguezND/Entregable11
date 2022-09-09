@@ -30,12 +30,16 @@ function renderProductos(data) {
 
 function renderMensajes(data) {
 
-    const html = data.map((elem, index) => {
+
+    const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
+
+    const nuevaData = denormalizedData.mensaje
+
+    const html = nuevaData.map((elem, index) => {
         return(`<div>
 
             <strong><font color="blue">${elem.author.email}</font></strong><font color="brown">[${elem.hora}]</font>:
             <em><font color="green"><i>${elem.text}</font></i></em> 
-            
             
             </div>`)
     }).join(" ");
