@@ -30,12 +30,11 @@ function renderProductos(data) {
 
 function renderMensajes(data) {
 
+    /* const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
 
-    const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
+    const nuevaData = denormalizedData.mensaje */
 
-    const nuevaData = denormalizedData.mensaje
-
-    const html = nuevaData.map((elem, index) => {
+    const html = data.map((elem, index) => {
         return(`<div>
 
             <strong><font color="blue">${elem.author.email}</font></strong><font color="brown">[${elem.hora}]</font>:
@@ -78,7 +77,6 @@ function addMessage(e) {
 
     }
 }
-
 
 function addProducto(e) {
     const producto = {

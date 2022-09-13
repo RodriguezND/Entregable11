@@ -63,38 +63,9 @@ class ContenedorMongoDb{
 
 
         let mensaje = await model.find({})
-        /* const arrayAuthor = []
-        mensaje.map((p) => {
-            
-            const objetoFinal = p.author
-            arrayAuthor.push(objetoFinal)
-        }) */
+        
 
-        const mensajes = { id: 999,
-                            mensaje: mensaje}
-
-
-        const schemaAuthor = new schema.Entity('author');
-
-        /* const schemaPost = new schema.Entity("post", {
-            author: schemaAuthor,
-        }) */
-
-        const normalizedChat = normalize(mensajes, schemaAuthor )
-
-        print(normalizedChat)
-
-        const data = [normalizedChat, schemaAuthor]
-
-        const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
-        console.log("DESNORMALIZAD")
-        print(denormalizedData)
-
-        /* console.log("Mensajee")
-        print(denormalizedData.mensaje) */
-
-        return data
- 
+        return mensaje
     }
 
     async deleteById(id){

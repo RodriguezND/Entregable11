@@ -34,6 +34,53 @@ app.get("/api/productos-test", (req, res) => {
     
 })
 
+
+
+
+/* const arrayAuthor = []
+mensaje.map((p) => {
+    
+    const objetoFinal = p.author
+    arrayAuthor.push(objetoFinal)
+})
+
+const mensajes = { id: 999,
+                    mensaje: mensaje}
+
+
+const schemaAuthor = new schema.Entity('author');
+
+const schemaPost = new schema.Entity("post", {
+    author: schemaAuthor,
+})
+
+const normalizedChat = normalize(mensajes, schemaAuthor )
+
+print(normalizedChat)
+
+const data = [normalizedChat, schemaAuthor] */
+
+/* const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
+console.log("DESNORMALIZAD")
+print(denormalizedData)
+
+console.log("Mensajee")
+print(denormalizedData.mensaje) */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 io.on('connection', function(socket) {
     console.log('Un cliente se ha conectado');
 
