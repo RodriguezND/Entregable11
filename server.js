@@ -1,6 +1,8 @@
 const express = require("express")
 const { Server: HttpServer } = require("http")
 const { Server: IOServer } = require("socket.io")
+const { schema, normalize, denormalize } = require('normalizr');
+const util = require('util');
 
 const ProductosDaoMongo = require("./daos/ProductosDaoMongoDb")
 const MensajesDaoMongo = require("./daos/MensajesDaoMongoDb")
@@ -21,6 +23,9 @@ httpServer.listen(8080, () => {
     console.log('Servidor corriendo en http://localhost:8080');
 })
 
+function print(objeto) {
+    console.log(util.inspect(objeto,false,12,true))
+    }
 
 app.get("/api/productos-test", (req, res) => {
 
@@ -45,20 +50,11 @@ mensaje.map((p) => {
 })
 
 const mensajes = { id: 999,
-                    mensaje: mensaje}
+                    mensaje: mensaje} */
 
 
-const schemaAuthor = new schema.Entity('author');
 
-const schemaPost = new schema.Entity("post", {
-    author: schemaAuthor,
-})
 
-const normalizedChat = normalize(mensajes, schemaAuthor )
-
-print(normalizedChat)
-
-const data = [normalizedChat, schemaAuthor] */
 
 /* const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
 console.log("DESNORMALIZAD")
@@ -66,15 +62,6 @@ print(denormalizedData)
 
 console.log("Mensajee")
 print(denormalizedData.mensaje) */
-
-
-
-
-
-
-
-
-
 
 
 
@@ -95,7 +82,32 @@ io.on('connection', function(socket) {
     //LISTAR MENSAJES
     proMongoMensajes.getAll().then(objetoLoco => {
 
-        io.sockets.emit('messages', objetoLoco);
+       /*  const schemaAuthor = new schema.Entity('author',{},{idAttribute: 'email'});
+
+        const schemaD = new schema.Entity('d', {author: schemaAutor}, {idAttribute: 'd'});
+
+        const schemaPost = new schema.Entity("post", {
+            d : schemaD,
+        })
+ */
+
+        const schemaAutor = new schema.Entity('author',{}, {idAttribute: 'email'});
+        /* const schemaDoc = new schema.Entity('_doc', {autor: schemaAutor}, {idAttribute: '_id'}); */
+        //Schema para el mensaje
+        const schemaMensaje = new schema.Entity('post', {author: schemaAutor});
+        //Schema para el conjunto de mensajes
+        const schemaMensajes = new schema.Entity('posts', {post: [schemaMensaje]});
+
+        const mens = {id: 'mensajes', post: objetoLoco}
+
+        const normalizedChat = normalize(mens, schemaMensajes )
+
+        print(normalizedChat)
+
+        const data = {normalized: normalizedChat, schema: schemaMensajes} 
+
+
+        io.sockets.emit('messages', objetoLoco );
 
     })
 
@@ -105,6 +117,7 @@ io.on('connection', function(socket) {
         proMongo.save(data)
 
         proMongo.getAll().then(objetoLoco => {
+
             io.sockets.emit('productos', objetoLoco);
         })
     })

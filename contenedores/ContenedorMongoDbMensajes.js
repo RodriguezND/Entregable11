@@ -1,7 +1,7 @@
 const { text } = require("express");
 const { mongoose } = require("mongoose");
-const { schema, normalize, denormalize } = require('normalizr');
-const util = require('util');
+
+
 
 const model = require("../models/mensajes")
 
@@ -57,9 +57,7 @@ class ContenedorMongoDb{
     async getAll()
     {
         console.log("READ ALL")
-        function print(objeto) {
-        console.log(util.inspect(objeto,false,12,true))
-        }
+        
 
 
         let mensaje = await model.find({})

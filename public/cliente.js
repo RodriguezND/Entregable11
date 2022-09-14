@@ -1,10 +1,8 @@
 const socket = io.connect();
+/* const { schema, normalize, denormalize } = require('normalizr'); */
 
-//PRODUCTOS
-/* socket.on('productos', data => {
-    console.log(data);
-});
- */
+
+/* const schemaAutor = new schema.Entity('author', {}, { idAttribute: 'email' }); */
 
 function renderProductos(data) {
     const html = data.map((productos, index) => {
@@ -30,10 +28,10 @@ function renderProductos(data) {
 
 function renderMensajes(data) {
 
-    /* const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
 
-    const nuevaData = denormalizedData.mensaje */
+    /* const schemaFinal = crearSchema(); */
 
+  
     const html = data.map((elem, index) => {
         return(`<div>
 
