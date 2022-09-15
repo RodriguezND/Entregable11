@@ -34,12 +34,15 @@ function renderMensajes(data) {
     console.log(denormalizedMessages)
 
 
-    const porcentajeDeCompresion = (100 * JSON.stringify(data[1]).length / JSON.stringify(denormalizedMessages).length).toFixed(2);
+    const porcentajeDeCompresion = (100 - ((JSON.stringify(denormalizedMessages).length / JSON.stringify(data[1]).length) * 100)).toFixed(2);
 
     console.log({porcentajeDeCompresion});
 
 
-    const html2 = `<h1>Porcentaje de Compresion: ${porcentajeDeCompresion} %<h1>`
+    const html2 = `<h1>Porcentaje de Compresion: ${porcentajeDeCompresion} %<h1>
+                    <h3>Normalizado: ${JSON.stringify(data[1]).length} </h3>
+                    <h3>DeNormalizado: ${JSON.stringify(denormalizedMessages).length} </h3>
+    `
 
     document.getElementById('porcentaje').innerHTML = html2;
 
