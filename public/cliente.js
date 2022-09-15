@@ -1,8 +1,5 @@
 const socket = io.connect();
-/* const { schema, normalize, denormalize } = require('normalizr'); */
 
-
-/* const schemaAutor = new schema.Entity('author', {}, { idAttribute: 'email' }); */
 
 function renderProductos(data) {
     const html = data.map((productos, index) => {
@@ -26,17 +23,32 @@ function renderProductos(data) {
 
 //MENSAJES
 
+
 function renderMensajes(data) {
 
+    const schemaAutor = new normalizr.schema.Entity('autor', {}, { idAttribute: 'email' });
+    const schemaMensaje = new normalizr.schema.Entity('messages', {author: schemaAutor}, {idAttribute: '_id'});
+    
+    const denormalizedMessages = normalizr.denormalize(data[1].result, [schemaMensaje], data[1].entities);
+    
+    console.log(denormalizedMessages)
 
-    /* const schemaFinal = crearSchema(); */
 
-  
-    const html = data.map((elem, index) => {
+    const porcentajeDeCompresion = (100 * JSON.stringify(data[1]).length / JSON.stringify(denormalizedMessages).length).toFixed(2);
+
+    console.log({porcentajeDeCompresion});
+
+
+    const html2 = `<h1>Porcentaje de Compresion: ${porcentajeDeCompresion} %<h1>`
+
+    document.getElementById('porcentaje').innerHTML = html2;
+
+
+    const html = denormalizedMessages.map((elem, index) => {
         return(`<div>
 
-            <strong><font color="blue">${elem.author.email}</font></strong><font color="brown">[${elem.hora}]</font>:
-            <em><font color="green"><i>${elem.text}</font></i></em> 
+            <strong><font color="blue">${elem._doc.author.email}</font></strong><font color="brown">[${elem._doc.hora}]</font>:
+            <em><font color="green"><i>${elem._doc.text}</font></i></em> 
             
             </div>`)
     }).join(" ");
@@ -94,7 +106,6 @@ socket.on('productos', function(data) {
 
 socket.on('messages', function(data) { 
 
-    
     renderMensajes(data); 
 });
 

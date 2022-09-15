@@ -7,6 +7,8 @@
     <title>ENTREGABLE 6</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="cliente.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    
 </head>
 <body>
     <h1>Nuevo Producto</h1>
@@ -29,6 +31,12 @@
 <div id="productos"></div>
 
 <br>
+
+<div id="porcentaje"></div>
+
+
+<br>
+
 <h1>Chat</h1>
 <form onsubmit="return addMessage(this)">
     <input type="text" id="username" placeholder="Email" >
@@ -37,6 +45,10 @@
 </form>
 
 <div id="messages"></div>
+
+
+
+
 
 </body>
 </html>

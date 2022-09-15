@@ -42,32 +42,6 @@ app.get("/api/productos-test", (req, res) => {
 
 
 
-/* const arrayAuthor = []
-mensaje.map((p) => {
-    
-    const objetoFinal = p.author
-    arrayAuthor.push(objetoFinal)
-})
-
-const mensajes = { id: 999,
-                    mensaje: mensaje} */
-
-
-
-
-
-/* const denormalizedData = denormalize(data[0].result, data[1], data[0].entities);
-console.log("DESNORMALIZAD")
-print(denormalizedData)
-
-console.log("Mensajee")
-print(denormalizedData.mensaje) */
-
-
-
-
-
-
 io.on('connection', function(socket) {
     console.log('Un cliente se ha conectado');
 
@@ -90,24 +64,20 @@ io.on('connection', function(socket) {
             d : schemaD,
         })
  */
+        console.log(objetoLoco)
 
-        const schemaAutor = new schema.Entity('author',{}, {idAttribute: 'email'});
-        /* const schemaDoc = new schema.Entity('_doc', {autor: schemaAutor}, {idAttribute: '_id'}); */
-        //Schema para el mensaje
-        const schemaMensaje = new schema.Entity('post', {author: schemaAutor});
-        //Schema para el conjunto de mensajes
-        const schemaMensajes = new schema.Entity('posts', {post: [schemaMensaje]});
+        const schemaAutor = new schema.Entity('authors',{}, {idAttribute: 'email'});
+        
+        const schemaMensaje = new schema.Entity('messages', {author: schemaAutor}, {idAttribute: '_id'});
 
-        const mens = {id: 'mensajes', post: objetoLoco}
+        const normalizedChat = normalize(objetoLoco, [schemaMensaje] )
 
-        const normalizedChat = normalize(mens, schemaMensajes )
+        console.log("NORMALIZADO")
 
         print(normalizedChat)
 
-        const data = {normalized: normalizedChat, schema: schemaMensajes} 
 
-
-        io.sockets.emit('messages', objetoLoco );
+        io.sockets.emit('messages', [objetoLoco, normalizedChat] );
 
     })
 
@@ -140,4 +110,4 @@ io.on('connection', function(socket) {
 
 });
 
-    
+module.exports = { schema, normalize, denormalize }
