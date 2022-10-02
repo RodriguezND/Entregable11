@@ -8,11 +8,12 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="cliente.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
-
-
 </head>
 <body>
 
+    <h1>Bienvenido <%= datos %></h1> <a href="/olvidar">                 Desloguearse</a>
+
+    <div id="saraza"></div>
 
     <h1>Nuevo Producto</h1>
     <form onsubmit="return addProducto(this)">
@@ -40,7 +41,6 @@
       <th>Precio</th>
       <th>Imagen</th>
     </tr>
-  
         <% for(let i=0; i < productos.length; i++) { %>
             <tr>
                 <td> <%= productos[i].title %></td>
@@ -49,9 +49,7 @@
             </tr>
         <% } %>
 
-  
   </table></div>
-
 
 <br>
 <h1>Chat</h1>

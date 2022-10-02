@@ -57,11 +57,8 @@ class ContenedorMongoDb{
     async getAll()
     {
         console.log("READ ALL")
-        
-
 
         let mensaje = await model.find({})
-        
 
         return mensaje
     }
